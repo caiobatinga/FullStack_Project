@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'spendwiser.settings')
+settings_moodule = 'spendwiser.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'spendwiser.settings'
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_moodule)
 
 application = get_wsgi_application()

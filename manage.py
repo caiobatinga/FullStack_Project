@@ -6,7 +6,9 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'spendwiser.settings')
+    settings_moodule = 'spendwiser.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'spendwiser.settings'
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_moodule)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
