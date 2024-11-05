@@ -65,25 +65,7 @@ WSGI_APPLICATION = 'spendwiser.wsgi.application'
 
 CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        
-        'NAME': 'postgres',
 
-        'USER': 'admin_spendwiser',
-
-        'PASSWORD': '!Crypt0gr@phy$',
-
-        'HOST': 'spendwiser-db.postgres.database.azure.com',
-
-        'PORT': '5432',
-
-        'OPTIONS': {
-            'sslmode': 'require',  
-        }
-    }
-}
 
 
 # Password validation
