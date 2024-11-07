@@ -37,13 +37,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         
-        'NAME': CONNECTION_STR['dbname'],
+        'NAME': 'postgres',
 
-        'USER': CONNECTION_STR['user'],
+        'USER': 'admin_spendwiser',
 
-        'PASSWORD': CONNECTION_STR['password'],
+        'PASSWORD': '!Crypt0gr@phy$',
 
-        'HOST': CONNECTION_STR['host'],
+        'HOST': 'spendwiser-db.postgres.database.azure.com',
+
+        'PORT': '5432',
+
+        'OPTIONS': {
+            'sslmode': 'require',  
+        }
     }
 }
 
