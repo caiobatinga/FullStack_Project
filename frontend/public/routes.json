@@ -1,0 +1,21 @@
+{
+    "routes": [
+      {
+        "route": "/login",
+        "serve": "/frontend/index.html"
+      },
+      {
+        "route": "/register",
+        "serve": "/frontend/index.html"
+      },
+      {
+        "route": "/home",
+        "serve": "/frontend/index.html"
+      },
+      {
+        "route": "/*",
+        "serve": "/frontend/index.html"
+      }
+    ]
+  }
+  
