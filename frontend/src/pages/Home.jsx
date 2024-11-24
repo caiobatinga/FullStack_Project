@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
 import api from "../api"
+import Expense from "../components/Expense"
+
 
 function Home() {
     const [expense_list, setExepense_list] = useState([]);
@@ -23,8 +25,9 @@ function Home() {
         .then((res) => {
             if (res.status === 204) alert("Expense deleted!");
             else alert("Failed to deleted expense.");
+            getExpenses();
         }).catch((error) => alert(error));
-        getExpenses();
+        
 
     }
     const createExpense = (e) => {
@@ -33,13 +36,17 @@ function Home() {
         .then((res) => {
             if (res.status === 201) alert("Expense created!");
             else alert("Failed to create expense.")
+            getExpenses;
         }).catch((error) => alert(error))
-        getExpenses;
+        
 
     }
     return <div>
         <div>
             <h2>Expenses</h2>
+            {expense_list.map((expense) => (
+                <Expense expense={expense} onDelete={deleteExpense} key={expense.id}/>
+        ))}
         </div>
         <h2> Create a Expense</h2>
         <form onSubmit={createExpense}>
