@@ -5,7 +5,7 @@ import { REFRESH_TOKEN, ACCESS_TOKEN} from "../constants";
 import {useState, useEffect} from "react";
 
 function ProtectedRoute({children}){
-    cons [isAuthorized, setIsAuthorized] = useState(null)
+    const [isAuthorized, setIsAuthorized] = useState(null)
 
     useEffect (()=>{
         auth().catch(() => setIsAuthorized(false))
