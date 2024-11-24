@@ -10,3 +10,5 @@ function Expense_item({expense, onDelete})  {
         </button>
     </div>
 };
+
+export default Expense_item
