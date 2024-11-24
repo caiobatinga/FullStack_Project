@@ -33,7 +33,6 @@ class ExpenseListCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        print(f"Requesting expenses for user: {user}")
         return Expenses.objects.filter(author=user)
     
     def perform_create(self, serializer):
