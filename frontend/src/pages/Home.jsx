@@ -37,7 +37,7 @@ function Home() {
         .then((res) => {
             if (res.status === 201) alert("Expense created!");
             else alert("Failed to create expense.")
-            getExpenses;
+            getExpenses();
         }).catch((error) => alert(error))
         
 
@@ -67,6 +67,7 @@ function Home() {
             value={date}
             />
             <br />
+            {loading && <LoadingIndicator/>}
             <input type="submit" value="Submit"></input>
 
 
