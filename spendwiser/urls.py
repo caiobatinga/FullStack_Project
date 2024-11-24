@@ -24,9 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('add_expense/', views.add_expense, name='add_expense'),
     path('get_expenses/', views.get_expenses, name='get_expenses'),
-    path("api/user/register",CreateUserView.as_view(), name="register"),
+    path("api/user/register/",CreateUserView.as_view(), name="register"),
     path("api/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh"),
     path("api-auth/", include("rest_framework.urls")),
-    path("api/", include("spendwiser.api.urls")),
+    path("expenses/", views.ExpenseListCreate.as_view(), name="expense-list"),
+    path("expense/delete/", views.ExpenseDelete.as_view(), name="delete-expense",),
 ]
