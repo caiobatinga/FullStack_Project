@@ -29,5 +29,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh"),
     path("api-auth/", include("rest_framework.urls")),
     path("api/expenses/", views.ExpenseListCreate.as_view(), name="expense-list"),
-    path("api/expense/delete/", views.ExpenseDelete.as_view(), name="delete-expense",),
+    path("api/expense/delete/<int:pk>/", views.ExpenseDelete.as_view(), name="delete-expense",),
 ]
