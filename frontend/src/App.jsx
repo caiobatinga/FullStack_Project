@@ -17,11 +17,8 @@ function RegisterAndLogout(){
 }
 
 function App() {
-  
-
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
         <Route
           path="/"
@@ -29,14 +26,14 @@ function App() {
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
-
-          } />
-          <Route path="/login" element={<Login />}/>
-          <Route path="/register" element={<RegisterAndLogout />}/>
-          <Route path="*" element={<NotFound />}/>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
-      </BrowserRouter>
-    </>
+    </BrowserRouter>
   )
 }
 
