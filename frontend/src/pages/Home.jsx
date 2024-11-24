@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import api from "../api"
 import Expense from "../components/Expense"
 import "../styles/Home.css"
-import LoadingIndicator from "../components/LoadingIndicator";
 
 
 function Home() {
@@ -68,7 +67,6 @@ function Home() {
             value={date}
             />
             <br />
-            {loading && <LoadingIndicator/>}
             <input type="submit" value="Submit"></input>
 
 
