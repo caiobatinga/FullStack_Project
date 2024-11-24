@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Expense.css"
 
 function Expense_item({expense, onDelete})  {
     return <div className="note-container">
