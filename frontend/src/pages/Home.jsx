@@ -42,9 +42,12 @@ function Home() {
         
 
     }
+    const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
+
     return <div>
         <div>
             <h2>Expenses</h2>
+            <p>Total Expenses: ${totalExpense.toFixed(2)}</p>
             {expense_list.map((expense) => (
                 <Expense expense={expense} onDelete={deleteExpense} key={expense.id}/>
         ))}
