@@ -118,8 +118,8 @@ function Home() {
             <select
                 id="budget"
                 name="budget"
-                value={selectedBudgetId} // Bind the selected value to the state
-                onChange={(e) => setSelectedBudgetId(e.target.value)} // Update the selected budget ID when changed
+                value={selectedBudget} // Bind the selected value to the state
+                onChange={(e) => setSelectedBudget(e.target.value)} // Update the selected budget ID when changed
                 required
             >
                 <option value="">-- Select Budget --</option>
