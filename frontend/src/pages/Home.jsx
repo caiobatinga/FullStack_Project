@@ -69,19 +69,22 @@ function Home() {
     }
 
     const createBudget = (e) => {
-        e.preventDefault()
-        api.post("/api/budgets/", {Budget_Amount, Budgte_Title, Budget_Date})
+        e.preventDefault();
+        api.post("/api/budgets/", {
+            title: Budgte_Title,
+            amount: Budget_Amount,
+            date: Budget_Date
+        })
         .then((res) => {
             if (res.status === 201) alert("Budget created!");
-            else alert("Failed to create expense.")
+            else alert("Failed to create budget.");
             getBudget();
             setBudget_Title("");
             setBudget_Amount("");
             setBudget_Date("");
-        }).catch((error) => alert(error))
-        
-
-    }
+        })
+        .catch((error) => alert(error));
+    };
 
     const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
 
