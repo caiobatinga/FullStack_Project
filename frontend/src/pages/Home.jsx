@@ -10,7 +10,8 @@ function Home() {
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
     // Budget
-    const [Budget_list, setBudget_list] = useState([]);
+    const [budgetList, setBudgetlist] = useState([]);
+    const [selectedBudget, setSelectedBudget] = useState("");
     const [Budgte_Title, setBudget_Title] = useState("");
     const [Budget_Amount, setBudget_Amount] = useState("");
     const [Budget_Date, setBudget_Date] = useState("");
@@ -136,6 +137,23 @@ function Home() {
             <input type="date" id="date" name="date" required on onChange={(e) => setBudget_Date(e.target.value)}
             value={Budget_Date}
             />
+            <br />
+            <label htmlFor="budget">Budget</label>
+                <br />
+                <select
+                    id="budget"
+                    name="budget"
+                    required
+                    value={selectedBudget}
+                    onChange={(e) => setSelectedBudget(e.target.value)}
+                >
+                    <option value="">Select a Budget</option>
+                    {budgetList.map((budget) => (
+                        <option key={budget.id} value={budget.id}>
+                            {budget.Budget_Title}
+                        </option>
+                    ))}
+                </select>
             <br />
             <input type="submit" value="Submit"></input>
 

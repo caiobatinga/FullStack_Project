@@ -14,9 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
 class ExpenseSerializer(serializers.ModelSerializer):
+    budget = serializers.PrimaryKeyRelatedField(queryset=Budget.objects.all(), required=True)
     class Meta:
         model = Expenses
-        fields = ["id", "title", "amount", "date", "author"]
+        fields = ["id", "title", "amount", "date", "author", "budget"]
         extra_kwargs = {"author": {"read_only": True}}
 
 class BudgetSerializer(serializers.ModelSerializer):
