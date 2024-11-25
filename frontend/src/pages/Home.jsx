@@ -124,7 +124,7 @@ function Home() {
                 >
                     <option value="">Select a Budget</option>
                     {budgetList.map((budget) => (
-                        <option key={budget.id} value={budget.id}>
+                        <option key={budget.id} value={budget.title}>
                             {budget.Budget_Title}
                         </option>
                     ))}
