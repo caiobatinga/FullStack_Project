@@ -116,7 +116,7 @@ function Home() {
             />
             <br />
             <label htmlFor="budget">Budget</label>
-                <br />
+            <br />
             <select
                 id="budget"
                 name="budget"
@@ -126,7 +126,7 @@ function Home() {
             >
                 <option value="">-- Select Budget --</option>
                 {budgetList.map((budget) => (
-                    <option key={budget.id} value={budget.title}>
+                    <option key={budget.id} value={budget.id}>
                         {budget.title} 
                     </option>
                 ))}
