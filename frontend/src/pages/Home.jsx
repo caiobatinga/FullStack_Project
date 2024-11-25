@@ -9,9 +9,15 @@ function Home() {
     const [title, setTitle] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
+    // Budget
+    const [Budget_list, setBudget_list] = useState([]);
+    const [Budgte_Title, setBudget_Title] = useState("");
+    const [Budget_amount, setBudget_Amount] = useState("");
+    const [Budget_date, setBudget_Date] = useState("");
 
     useEffect(() => {
         getExpenses();
+        getBudget();
     }, []);
 
     const getExpenses = () => {
@@ -28,9 +34,8 @@ function Home() {
             else alert("Failed to deleted expense.");
             getExpenses();
         }).catch((error) => alert(error));
-        
-
     }
+
     const createExpense = (e) => {
         e.preventDefault()
         api.post("/api/expenses/", {amount, title, date})
@@ -42,6 +47,36 @@ function Home() {
         
 
     }
+    //Budget
+
+    const getBudget = () => {
+        api.get("/api/budgets/")
+        .then((res) => res.data)
+        .then((data) => {setBudget_list(data); console.log(data)})
+        .catch((err) => alert(err));
+    };
+
+    const deleteBudget = (id) => {
+        api.delete(`/api/budget/delete/${id}/`)
+        .then((res) => {
+            if (res.status === 204) alert("Budget deleted!");
+            else alert("Failed to deleted budget.");
+            getBudget();
+        }).catch((error) => alert(error));
+    }
+
+    const createBudget = (e) => {
+        e.preventDefault()
+        api.post("/api/budgets/", {amount, title, date})
+        .then((res) => {
+            if (res.status === 201) alert("Expense created!");
+            else alert("Failed to create expense.")
+            getExpenses();
+        }).catch((error) => alert(error))
+        
+
+    }
+
     const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
 
     return <div>
@@ -68,6 +103,29 @@ function Home() {
             <br />
             <input type="date" id="date" name="date" required on onChange={(e) => setDate(e.target.value)}
             value={date}
+            />
+            <br />
+            <input type="submit" value="Submit"></input>
+
+
+        </form>
+        <br/>
+        <h2> Create a Budget</h2>
+        <form onSubmit={createBudget}>
+            <label htmlFor="title">Title</label>
+            <br />
+            <input type="text" id="title" name="title" required on onChange={(e) => setTitle(e.target.value)}
+            value={Budgte_Title}
+            />
+            <label htmlFor="amount">Amount</label>
+            <br />
+            <input type="number" id="amount" name="amount" required on onChange={(e) => setAmount(e.target.value)}
+            value={Budget_amount}
+            />
+            <label htmlFor="date">Date</label>
+            <br />
+            <input type="date" id="date" name="date" required on onChange={(e) => setDate(e.target.value)}
+            value={Budget_date}
             />
             <br />
             <input type="submit" value="Submit"></input>

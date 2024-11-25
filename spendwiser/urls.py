@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-from .views import CreateUserView
+from .views import CreateUserView, BudgetListCreate
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -30,4 +30,6 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("api/expenses/", views.ExpenseListCreate.as_view(), name="expense-list"),
     path("api/expense/delete/<int:pk>/", views.ExpenseDelete.as_view(), name="delete-expense",),
+    path("api/budgets/", views.BudgetListCreate.as_view(), name="budget-list"),
+    path("api/budget/delete/<int:pk>/", views.BudgetDelete.as_view(), name="delete-budget",),
 ]
