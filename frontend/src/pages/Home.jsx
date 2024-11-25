@@ -39,7 +39,7 @@ function Home() {
 
     const createExpense = (e) => {
         e.preventDefault()
-        api.post("/api/expenses/", {amount, title, date})
+        api.post("/api/expenses/", {amount, title, date, selectedBudget})
         .then((res) => {
             if (res.status === 201) alert("Expense created!");
             else alert("Failed to create expense.")
