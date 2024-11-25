@@ -116,19 +116,19 @@ function Home() {
             />
             <br />
             <select
-                    id="budget"
-                    name="budget"
-                    required
-                    value={selectedBudget}
-                    onChange={(e) => setSelectedBudget(e.target.value)}
-                >
-                    <option value="">Select a Budget</option>
-                    {budgetList.map((budget) => (
-                        <option key={budget.id} value={budget.title}>
-                            {budget.Budget_Title}
-                        </option>
-                    ))}
-                </select>
+                id="budget"
+                name="budget"
+                value={selectedBudgetId} // Bind the selected value to the state
+                onChange={(e) => setSelectedBudgetId(e.target.value)} // Update the selected budget ID when changed
+                required
+            >
+                <option value="">-- Select Budget --</option>
+                {budgetList.map((budget) => (
+                    <option key={budget.id} value={budget.title}>
+                        {budget.title} 
+                    </option>
+                ))}
+            </select>
             <br />
             <input type="submit" value="Submit"></input>
 
