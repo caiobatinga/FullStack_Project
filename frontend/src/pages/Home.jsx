@@ -3,7 +3,8 @@ import api from "../api"
 import Expense from "../components/Expense"
 import Budget from "../components/Budget"
 import "../styles/Home.css"
-
+import "../styles/index.css"
+import wave from "../assets/wave.svg"
 
 function Home() {
     const [expense_list, setExepense_list] = useState([]);
@@ -90,7 +91,7 @@ function Home() {
 
     const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
 
-    return <div>
+    return <div className="layout">
         <div>
             <h2>Expenses</h2>
             <p>Total Expenses: ${totalExpense.toFixed(2)}</p>
@@ -166,7 +167,7 @@ function Home() {
         ))}
         </div>
         
-
+        <img src={wave} atl=""/>
     </div>
 }
 
