@@ -12,8 +12,8 @@ function Home() {
     // Budget
     const [Budget_list, setBudget_list] = useState([]);
     const [Budgte_Title, setBudget_Title] = useState("");
-    const [Budget_amount, setBudget_Amount] = useState("");
-    const [Budget_date, setBudget_Date] = useState("");
+    const [Budget_Amount, setBudget_Amount] = useState("");
+    const [Budget_Date, setBudget_Date] = useState("");
 
     useEffect(() => {
         getExpenses();
@@ -70,7 +70,7 @@ function Home() {
 
     const createBudget = (e) => {
         e.preventDefault()
-        api.post("/api/budgets/", {Budget_amount, Budgte_Title, Budget_date})
+        api.post("/api/budgets/", {Budget_Amount, Budgte_Title, Budget_Date})
         .then((res) => {
             if (res.status === 201) alert("Budget created!");
             else alert("Failed to create expense.")
@@ -126,12 +126,12 @@ function Home() {
             <label htmlFor="amount">Amount</label>
             <br />
             <input type="number" id="amount" name="amount" required on onChange={(e) => setBudget_Amount(e.target.value)}
-            value={Budget_amount}
+            value={Budget_Amount}
             />
             <label htmlFor="date">Date</label>
             <br />
             <input type="date" id="date" name="date" required on onChange={(e) => setBudget_Date(e.target.value)}
-            value={Budget_date}
+            value={Budget_Date}
             />
             <br />
             <input type="submit" value="Submit"></input>
