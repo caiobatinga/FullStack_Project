@@ -39,7 +39,7 @@ function Home() {
 
     const createExpense = (e) => {
         e.preventDefault()
-        api.post("/api/expenses/", {amount, title, date, selectedBudget})
+        api.post("/api/expenses/", {amount, title, date, budget: selectedBudget})
         .then((res) => {
             if (res.status === 201) alert("Expense created!");
             else alert("Failed to create expense.")
@@ -115,11 +115,13 @@ function Home() {
             value={date}
             />
             <br />
+            <label htmlFor="budget">Budget</label>
+                <br />
             <select
                 id="budget"
                 name="budget"
-                value={selectedBudget} // Bind the selected value to the state
-                onChange={(e) => setSelectedBudget(e.target.value)} // Update the selected budget ID when changed
+                value={selectedBudget} 
+                onChange={(e) => setSelectedBudget(e.target.value)} 
                 required
             >
                 <option value="">-- Select Budget --</option>
@@ -153,8 +155,6 @@ function Home() {
             value={Budget_Date}
             />
             <br />
-            <label htmlFor="budget">Budget</label>
-                <br />
 
             <input type="submit" value="Submit"></input>
 
