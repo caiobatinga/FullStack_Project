@@ -10,7 +10,7 @@ function Home() {
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
     // Budget
-    const [budgetList, setBudgetlist] = useState([]);
+    const [budgetList, setBudgetList] = useState([]);
     const [selectedBudget, setSelectedBudget] = useState("");
     const [Budgte_Title, setBudget_Title] = useState("");
     const [Budget_Amount, setBudget_Amount] = useState("");
@@ -56,7 +56,7 @@ function Home() {
     const getBudget = () => {
         api.get("/api/budgets/")
         .then((res) => res.data)
-        .then((data) => {setBudget_list(data); console.log(data)})
+        .then((data) => {setBudgetList(data); console.log(data)})
         .catch((err) => alert(err));
     };
 
