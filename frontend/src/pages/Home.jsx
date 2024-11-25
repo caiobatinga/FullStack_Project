@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import api from "../api"
 import Expense from "../components/Expense"
+import Budget from "../components/Budget"
 import "../styles/Home.css"
 
 
@@ -157,9 +158,14 @@ function Home() {
             <br />
 
             <input type="submit" value="Submit"></input>
-
-
         </form>
+        <div>
+            <h2>Existing Budgets</h2>
+            {budgetList.map((budget) => (
+                <Budget budget={budget} onDelete={deleteExpense} key={budget.id}/>
+        ))}
+        </div>
+        
 
     </div>
 }
