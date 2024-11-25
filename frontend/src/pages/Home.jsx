@@ -43,6 +43,9 @@ function Home() {
             if (res.status === 201) alert("Expense created!");
             else alert("Failed to create expense.")
             getExpenses();
+            setBudget_Title("");
+            setAmount("");
+            setDate("");
         }).catch((error) => alert(error))
         
 
@@ -67,11 +70,14 @@ function Home() {
 
     const createBudget = (e) => {
         e.preventDefault()
-        api.post("/api/budgets/", {amount, title, date})
+        api.post("/api/budgets/", {Budget_amount, Budgte_Title, Budget_date})
         .then((res) => {
-            if (res.status === 201) alert("Expense created!");
+            if (res.status === 201) alert("Budget created!");
             else alert("Failed to create expense.")
-            getExpenses();
+            getBudget();
+            setBudget_Title("");
+            setBudget_Amount("");
+            setBudget_Date("");
         }).catch((error) => alert(error))
         
 
