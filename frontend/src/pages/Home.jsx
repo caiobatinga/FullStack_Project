@@ -162,7 +162,7 @@ function Home() {
         <div>
             <h2>Existing Budgets</h2>
             {budgetList.map((budget) => (
-                <Budget budget={budget} onDelete={deleteExpense} key={budget.id}/>
+                <Budget budget={budget} expenses={expense_list} onDelete={deleteBudget} key={budget.id}/>
         ))}
         </div>
         
