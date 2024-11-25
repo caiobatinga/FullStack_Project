@@ -114,17 +114,17 @@ function Home() {
         <form onSubmit={createBudget}>
             <label htmlFor="title">Title</label>
             <br />
-            <input type="text" id="budget_title" name="title" required on onChange={(e) => setTitle(e.target.value)}
+            <input type="text" id="budget_title" name="title" required on onChange={(e) => setBudget_Title(e.target.value)}
             value={Budgte_Title}
             />
             <label htmlFor="amount">Amount</label>
             <br />
-            <input type="number" id="budget_amount" name="amount" required on onChange={(e) => setAmount(e.target.value)}
+            <input type="number" id="budget_amount" name="amount" required on onChange={(e) => setBudget_Amount(e.target.value)}
             value={Budget_amount}
             />
             <label htmlFor="date">Date</label>
             <br />
-            <input type="date" id="budget_date" name="date" required on onChange={(e) => setDate(e.target.value)}
+            <input type="date" id="budget_date" name="date" required on onChange={(e) => setBudget_Date(e.target.value)}
             value={Budget_date}
             />
             <br />
