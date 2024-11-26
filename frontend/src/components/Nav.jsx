@@ -8,11 +8,6 @@ const Nav = () => {
                 <img src={logomark} alt="Home" height={30} />
                 <span>SpendWiser</span>
             </NavLink>
-            <form method="post" action="/logout">
-                <button type="submit" className="btn btn--warning">
-                    <span>Logout</span>
-                </button>
-            </form>
         </nav>
     );
 };
