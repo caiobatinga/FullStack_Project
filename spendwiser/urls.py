@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-from .views import CreateUserView, BudgetListCreate
+from .views import CreateUserView, BudgetListCreate, GenerateRecommendationsView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -32,4 +32,5 @@ urlpatterns = [
     path("api/expense/delete/<int:pk>/", views.ExpenseDelete.as_view(), name="delete-expense",),
     path("api/budgets/", views.BudgetListCreate.as_view(), name="budget-list"),
     path("api/budget/delete/<int:pk>/", views.BudgetDelete.as_view(), name="delete-budget",),
+    path('api/generate-recommendation/', GenerateRecommendationsView.as_view(), name='generate-recommendation'),
 ]

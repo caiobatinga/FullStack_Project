@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../api"
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-import "../styles/form.css"
+import "../styles/index.css"
 import LoadingIndicator from "./LoadingIndicator";
 import Nav from "./Nav";
 import wave from "../assets/wave.svg"
@@ -37,34 +37,41 @@ function Form({route, method}) {
 
     return <div className="layout">
     <Nav />
-    <div className="intro">
+    <div className="intro" >
     <h1> Take Control of <span className="accent">Your Money</span></h1>
     <p>Take control of your money, unlock your freedom. Your journey starts here!</p>
     </div>
-    <form onSubmit={handleSubmit} className="form-container">
-    <span>{name}</span> 
-    <input
-        className="input"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-    />
-        <input
-        className="input"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-    />
-    {loading && <LoadingIndicator/>}
-    <br />
-    <button className="btn btn--dark" type="submit">
-        {name}
-    </button>
-    
-    
-     </form>
+    <div className="login-container">
+        <form onSubmit={handleSubmit}>
+            <div className="login-box">
+            <span>{name}</span> 
+            <div>
+            <input
+                className="input"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+            />
+            </div>
+            <div>
+                <input
+                className="input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+            />
+            </div>
+            {loading && <LoadingIndicator/>}
+            <button className="btn btn--dark" type="submit">
+                {name}
+            </button>
+            </div>
+        </form>
+
+    </div>
+
 <img src={wave} atl=""/>
  </div >
 

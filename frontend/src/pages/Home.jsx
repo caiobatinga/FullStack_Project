@@ -21,8 +21,9 @@ function Home() {
     const [Budget_Date, setBudget_Date] = useState("");
 
     useEffect(() => {
-        getExpenses();
         getBudget();
+        getExpenses();
+        
     }, []);
 
     const getExpenses = () => {
@@ -91,22 +92,30 @@ function Home() {
         .catch((error) => alert(error));
     };
 
+    /* Get OpenAI Recommendations */
+
+    const getRecommendations = async () => {
+        try {
+            const response = await api.post('/api/generate-recommendation/', {
+                budgets: budgetList,
+                expenses: expense_list,
+            });
+            const recommendations = response.data.recommendations;
+    
+            // Display the recommendations
+            toast.success("Recommendations generated!");
+            console.log(recommendations);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to generate recommendations.");
+        }
+    };
+
     const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
 
     return <div className="layout">
     <Nav />
  
-    <div>
-        <h2>Expenses</h2>
-        <p>Total Expenses: ${totalExpense.toFixed(2)}</p>
-        {expense_list.map((expense) => (
-            <Expense
-                expense={expense}
-                onDelete={deleteExpense}
-                key={expense.id}
-            />
-        ))}
-    </div>
 
     <div className="dashboard">
         <div className="grid-sm">
@@ -187,7 +196,7 @@ function Home() {
                         type="number"
                         id="amount"
                         name="amount"
-                        placeholder="eg. $20000"
+                        placeholder="eg. $200"
                         required
                         onChange={(e) => setBudget_Amount(e.target.value)}
                         value={Budget_Amount}
@@ -210,7 +219,10 @@ function Home() {
             </form>
         </div>
     </div>
-        <h2>Existing Budgets</h2>
+    <div className="intro">
+    <h2>Existing Budgets</h2>
+    </div>
+    <div className="budget-container">
         {budgetList.map((budget) => (
             <Budget
                 budget={budget}
@@ -219,6 +231,39 @@ function Home() {
                 key={budget.id}
             />
         ))}
+    </div>
+    <div>
+        <div className="intro">
+        <h2>Expenses</h2>
+        <p>Total Expenses: ${totalExpense.toFixed(2)}</p>
+        </div>
+        <div className="table">
+        <table>
+            <thead>
+                <tr>
+                    {
+                    ["Name","Amount","Date", "Budget"].map((i, index)=> (<th key ={index}>{i}</th>))
+                    }
+                </tr>
+            </thead>
+            <tbody>
+
+        {expense_list.map((expense) => (
+            <Expense
+                expense={expense}
+                budget={Budget}
+                onDelete={deleteExpense}
+                key={expense.id}
+            />
+        ))}
+            </tbody>
+        </table>
+        </div>
+        <button className="btn btn--dark" onClick={getRecommendations}>
+    Generate Financial Recommendations
+</button>
+    </div>
+
     
 
     <img src={wave} alt="" />
