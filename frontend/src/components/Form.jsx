@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/form.css"
 import LoadingIndicator from "./LoadingIndicator";
+import Nav from "./Nav";
+import wave from "../assets/wave.svg"
 
 function Form({route, method}) {
     const [username, setUsername] = useState("")
@@ -33,29 +35,38 @@ function Form({route, method}) {
         }
     }
 
-    return <form onSubmit={handleSubmit} className="form-container">
-    <h1>{name}</h1> 
+    return <div className="layout">
+    <Nav />
+    <div className="intro">
+    <h1> Take Control of <span className="accent">Your Money</span></h1>
+    <p>Take control of your money, unlock your freedom. Your journey starts here!</p>
+    </div>
+    <form onSubmit={handleSubmit} className="form-container">
+    <span>{name}</span> 
     <input
-        className="form-input"
+        className="input"
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
     />
         <input
-        className="form-input"
+        className="input"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
     />
     {loading && <LoadingIndicator/>}
-    <button className="form-button" type="submit">
+    <br />
+    <button className="btn btn--dark" type="submit">
         {name}
     </button>
     
     
      </form>
+<img src={wave} atl=""/>
+ </div >
 
 }
 

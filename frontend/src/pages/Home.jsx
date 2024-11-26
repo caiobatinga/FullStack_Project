@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import api from "../api"
 import Expense from "../components/Expense"
 import Budget from "../components/Budget"
-import "../styles/Home.css"
+
 import "../styles/index.css"
 import wave from "../assets/wave.svg"
 import Nav from "../components/Nav"
@@ -94,84 +94,136 @@ function Home() {
     const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
 
     return <div className="layout">
-        <Nav />
-        <div>
-            <h2>Expenses</h2>
-            <p>Total Expenses: ${totalExpense.toFixed(2)}</p>
-            {expense_list.map((expense) => (
-                <Expense expense={expense} onDelete={deleteExpense} key={expense.id}/>
+    <Nav />
+ 
+    <div>
+        <h2>Expenses</h2>
+        <p>Total Expenses: ${totalExpense.toFixed(2)}</p>
+        {expense_list.map((expense) => (
+            <Expense
+                expense={expense}
+                onDelete={deleteExpense}
+                key={expense.id}
+            />
         ))}
-        </div>
-        <h2> Create a Expense</h2>
-        <form onSubmit={createExpense}>
-            <label htmlFor="title">Title</label>
-            <br />
-            <input type="text" id="title" name="title" required on onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            />
-            <label htmlFor="amount">Amount</label>
-            <br />
-            <input type="number" id="amount" name="amount" required on onChange={(e) => setAmount(e.target.value)}
-            value={amount}
-            />
-            <label htmlFor="date">Date</label>
-            <br />
-            <input type="date" id="date" name="date" required on onChange={(e) => setDate(e.target.value)}
-            value={date}
-            />
-            <br />
-            <label htmlFor="budget">Budget</label>
-            <br />
-            <select
-                id="budget"
-                name="budget"
-                value={selectedBudget} 
-                onChange={(e) => setSelectedBudget(e.target.value)} 
-                required
-            >
-                <option value="">-- Select Budget --</option>
-                {budgetList.map((budget) => (
-                    <option key={budget.id} value={budget.id}>
-                        {budget.title} 
-                    </option>
-                ))}
-            </select>
-            <br />
-            <input type="submit" value="Submit"></input>
-
-
-        </form>
-        <br/>
-        <h2> Create a Budget</h2>
-        <form onSubmit={createBudget}>
-            <label htmlFor="title">Title</label>
-            <br />
-            <input type="text" id="title" name="title" required on onChange={(e) => setBudget_Title(e.target.value)}
-            value={Budgte_Title}
-            />
-            <label htmlFor="amount">Amount</label>
-            <br />
-            <input type="number" id="amount" name="amount" required on onChange={(e) => setBudget_Amount(e.target.value)}
-            value={Budget_Amount}
-            />
-            <label htmlFor="date">Date</label>
-            <br />
-            <input type="date" id="date" name="date" required on onChange={(e) => setBudget_Date(e.target.value)}
-            value={Budget_Date}
-            />
-            <br />
-
-            <input type="submit" value="Submit"></input>
-        </form>
-        <div>
-            <h2>Existing Budgets</h2>
-            {budgetList.map((budget) => (
-                <Budget budget={budget} expenses={expense_list} onDelete={deleteBudget} key={budget.id}/>
-        ))}
-        </div>
-        
-        <img src={wave} atl=""/>
     </div>
+
+    <div className="dashboard">
+        <div className="grid-sm">
+            <div className="form-wrapper">
+                <h2 className="h3">Add New Expense</h2>
+                <form onSubmit={createExpense}>
+                    <div className="grid-xs">
+                    <label htmlFor="title">Expense Name</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="eg. food"
+                        required
+                        onChange={(e) => setTitle(e.target.value)}
+                        value={title}
+                    />
+                    <label htmlFor="amount">Amount</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        placeholder="eg. $250"
+                        name="amount"
+                        required
+                        onChange={(e) => setAmount(e.target.value)}
+                        value={amount}
+                    />
+                    <label htmlFor="date">Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required
+                        onChange={(e) => setDate(e.target.value)}
+                        value={date}
+                    />
+                    <label htmlFor="budget">Budget</label>
+                    <select
+                        id="budget"
+                        name="budget"
+                        value={selectedBudget}
+                        onChange={(e) => setSelectedBudget(e.target.value)}
+                        required
+                    >
+                        <option value="">-- Select Budget --</option>
+                        {budgetList.map((budget) => (
+                            <option key={budget.id} value={budget.id}>
+                                {budget.title}
+                            </option>
+                        ))}
+                    </select>
+                    <button
+                        className="btn btn--dark"
+                        type="submit"
+                        value="Submit"
+                    >Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br />
+        <div className="form-wrapper">
+            <form onSubmit={createBudget}>
+            <div className="grid-xs">
+                    <h2 className="h3">Create a Budget</h2>
+                    <label htmlFor="title">Budget Name</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="eg. Travel"
+                        required
+                        onChange={(e) => setBudget_Title(e.target.value)}
+                        value={Budgte_Title}
+                    />
+                    <label htmlFor="amount">Amount</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        name="amount"
+                        placeholder="eg. $20000"
+                        required
+                        onChange={(e) => setBudget_Amount(e.target.value)}
+                        value={Budget_Amount}
+                    />
+                    <label htmlFor="date">Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required
+                        onChange={(e) => setBudget_Date(e.target.value)}
+                        value={Budget_Date}
+                    />
+                    <button
+                        className="btn btn--dark"
+                        type="submit"
+                        value="Submit"
+                    >Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+        <h2>Existing Budgets</h2>
+        {budgetList.map((budget) => (
+            <Budget
+                budget={budget}
+                expenses={expense_list}
+                onDelete={deleteBudget}
+                key={budget.id}
+            />
+        ))}
+    
+
+    <img src={wave} alt="" />
+</div>
+
 }
 
 export default Home
