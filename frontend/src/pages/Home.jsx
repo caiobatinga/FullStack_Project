@@ -35,7 +35,7 @@ function Home() {
     const deleteExpense = (id) => {
         api.delete(`/api/expense/delete/${id}/`)
         .then((res) => {
-            if (res.status === 204) alert("Expense deleted!");
+            if (res.status === 204) toast.success("Expense deleted!");
             else alert("Failed to deleted expense.");
             getExpenses();
         }).catch((error) => alert(error));
@@ -67,7 +67,7 @@ function Home() {
     const deleteBudget = (id) => {
         api.delete(`/api/budget/delete/${id}/`)
         .then((res) => {
-            if (res.status === 204) alert("Budget deleted!");
+            if (res.status === 204) toast.success("Budget deleted!");
             else alert("Failed to deleted budget.");
             getBudget();
         }).catch((error) => alert(error));
@@ -81,7 +81,7 @@ function Home() {
             date: Budget_Date
         })
         .then((res) => {
-            if (res.status === 201) alert("Budget created!");
+            if (res.status === 201) toast.success("Budget created!");
             else alert("Failed to create budget.");
             getBudget();
             setBudget_Title("");
