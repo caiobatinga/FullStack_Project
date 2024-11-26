@@ -6,6 +6,7 @@ import "../styles/Home.css"
 import "../styles/index.css"
 import wave from "../assets/wave.svg"
 import Nav from "../components/Nav"
+import { toast } from "react-toastify"
 
 function Home() {
     const [expense_list, setExepense_list] = useState([]);
@@ -44,7 +45,7 @@ function Home() {
         e.preventDefault()
         api.post("/api/expenses/", {amount, title, date, budget: selectedBudget})
         .then((res) => {
-            if (res.status === 201) alert("Expense created!");
+            if (res.status === 201) toast.success("Expense created!");
             else alert("Failed to create expense.")
             getExpenses();
             setBudget_Title("");
