@@ -1,23 +1,20 @@
-import logomark from "../assets/logomark.svg"
-import { Form, NavLink } from "react-router-dom"
+import logomark from "../assets/logomark.svg";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
     return (
         <nav>
             <NavLink to="/" aria-label="Home">
-            <img src={logomark} alt="Home" height={30} />
-            <span>SpendWiser</span>
+                <img src={logomark} alt="Home" height={30} />
+                <span>SpendWiser</span>
             </NavLink>
-            <Form
-            method="post"
-            action="/logout">
+            <form method="post" action="/logout">
                 <button type="submit" className="btn btn--warning">
-                <span>Logout</span>
+                    <span>Logout</span>
                 </button>
-            </Form>
+            </form>
         </nav>
-    )
+    );
+};
 
-}
-
-export default Nav
+export default Nav;
