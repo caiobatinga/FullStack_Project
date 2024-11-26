@@ -12,7 +12,7 @@ const Nav = () => {
             method="post"
             action="/logout">
                 <button type="submit" className="btn btn--warning">
-                <Span>Logout</Span>
+                <span>Logout</span>
                 </button>
             </Form>
         </nav>
