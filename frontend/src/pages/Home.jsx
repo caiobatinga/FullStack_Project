@@ -264,7 +264,6 @@ function Home() {
 </button>
 
     </div>
-        {recommendations}
     <div className="container">
                 <h1>Financial Dashboard</h1>
                 {/* Pass the data to Recommendation */}
