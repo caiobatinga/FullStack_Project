@@ -12,23 +12,18 @@ function Recommendation({ budgets, expenses }) {
         setRecommendation("");
 
         try {
-            const response = await fetch("/api/generate-recommendation/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ budgets, expenses }),
+            const response = await api.post('/api/generate-recommendation/', {
+                budgets: budgetList,
+                expenses: expense_list,
             });
-
-            if (response.ok) {
-                const data = await response.json();
-                setRecommendation(data.recommendation);
-            } else {
-                const errorData = await response.json();
-                setError(errorData.error || "An error occurred while fetching recommendations.");
-            }
-        } catch (err) {
-            setError("An unexpected error occurred. Please try again later.");
+            const recommendations = response.data.recommendations;
+    
+            // Display the recommendations
+            toast.success("Recommendations generated!");
+            console.log(recommendations);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to generate recommendations.");
         } finally {
             setLoading(false);
         }
