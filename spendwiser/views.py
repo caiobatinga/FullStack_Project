@@ -95,29 +95,26 @@ class GenerateRecommendationsView(APIView):
         expenses = request.data.get('expenses', [])
 
         # Prepare the prompt for OpenAI
-        prompt = f"""
-        You are a data visualization assistant. Generate Python code using Matplotlib and Seaborn to create charts based on the following data:
-        Budgets: {budgets}
-        Expenses: {expenses}
-        
-        Create the following charts:
-        1. A bar chart showing each budget's title and amount.
-        2. A pie chart showing the distribution of expenses across budgets.
-        3. A line chart showing expenses over time.
-
-        Make sure the code is complete and can be run directly.
-        """
+        prompt = [
+                {"role": "system", "content": "You are a financial advisor assistant. Analyze the following data and provide recommendations for optimizing the budget and reducing unnecessary expenses. "},
+                {"role": "user", "content": f"""Generate recommendations based on this data:Budgets: {budgets}  Expenses: {expenses}
+                    Based on this information, suggest:
+                    1. Areas where the user is overspending.
+                    2. Opportunities to save money.
+                    3. Adjustments to the budget allocation.
+                    4. Potential ways to improve the user's financial health.
+"""}
+            ]
 
         try:
             # Call OpenAI API
-            response = openai.Completion.create(
-                engine="text-davinci-003",  # Use GPT-4 or the latest model
+            response = openai.completions.create(
+                engine="GPT-4",  # Use GPT-4 or the latest model
                 prompt=prompt,
-                max_tokens=500,
-                temperature=0,
+                max_tokens=150,
             )
-            chart_code = response.choices[0].text.strip()
-            return Response({"chart_code": chart_code})
+            reply = response.choices[0].message.content
+            return print(reply)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
 
