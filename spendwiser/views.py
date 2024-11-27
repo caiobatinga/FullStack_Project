@@ -10,6 +10,7 @@ from .models import Expenses, Budget
 import openai
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 
 
 def add_expense(request):
@@ -111,7 +112,7 @@ class GenerateRecommendationsView(APIView):
                 max_tokens=150
             )
             reply = response.choices[0].message.content
-            print(reply)
+            return Response({"recommendation": reply}, status=status.HTTP_200_OK)
         except Exception as e:
             print(f"Error generating recommendation: {str(e)}")
             raise
