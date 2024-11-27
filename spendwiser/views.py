@@ -94,29 +94,27 @@ class GenerateRecommendationsView(APIView):
         budgets = request.data.get('budgets', [])
         expenses = request.data.get('expenses', [])
 
-        # Prepare the prompt for OpenAI
-        prompt = [
-                {"role": "system", "content": "You are a financial advisor assistant. Analyze the following data and provide recommendations for optimizing the budget and reducing unnecessary expenses. "},
-                {"role": "user", "content": f"""Generate recommendations based on this data:Budgets: {budgets}  Expenses: {expenses}
-                    Based on this information, suggest:
-                    1. Areas where the user is overspending.
-                    2. Opportunities to save money.
-                    3. Adjustments to the budget allocation.
-                    4. Potential ways to improve the user's financial health.
-"""}
-            ]
 
         try:
-            # Call OpenAI API
-            response = openai.completions.create(
-                engine="GPT-4",  # Use GPT-4 or the latest model
-                prompt=prompt,
-                max_tokens=150,
+            response = openai.chat.completions.create(
+                model="gpt-4",  # Use a newer model like "gpt-3.5-turbo" or "gpt-4"
+                messages=[
+                    {"role": "system", "content": "You are a financial advisor assistant. Analyze the following data and provide recommendations for optimizing the budget and reducing unnecessary expenses. "},
+                    {"role": "user", "content": f"""Generate recommendations based on this data:         Budgets {budgets}   Expenses: {expenses}
+                        Based on this information, suggest:
+                        1. Areas where the user is overspending.
+                        2. Opportunities to save money.
+                        3. Adjustments to the budget allocation.
+                        4. Potential ways to improve the user's financial health.
+    """}
+                ],
+                max_tokens=150
             )
             reply = response.choices[0].message.content
-            return print(reply)
+            print(reply)
         except Exception as e:
-            return Response({"error": str(e)}, status=500)
+            print(f"Error generating recommendation: {str(e)}")
+            raise
 
 
 
