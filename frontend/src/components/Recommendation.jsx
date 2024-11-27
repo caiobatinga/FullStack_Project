@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/index.css";
 import { toast } from "react-toastify"
+import api from "../api"
 
 function Recommendation({ budgets, expenses }) {
     const [loading, setLoading] = useState(false);
