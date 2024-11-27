@@ -19,6 +19,7 @@ function Recommendation({ budgets, expenses }) {
                 expenses,
             });
             const recommendations = response.data.recommendation;
+            setRecommendation(response.data.recommendation)
     
             console.log(response)
             toast.success("Recommendations generated!");
