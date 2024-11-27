@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/index.css";
 import { toast } from "react-toastify"
 import api from "../api"
+import LoadingIndicator from "./LoadingIndicator";
 
 function Recommendation({ budgets, expenses }) {
     const [loading, setLoading] = useState(false);
@@ -18,12 +19,10 @@ function Recommendation({ budgets, expenses }) {
                 budgets,
                 expenses,
             });
-            const recommendations = response.data.recommendation;
+            
             setRecommendation(response.data.recommendation)
     
-            console.log(response)
             toast.success("Recommendations generated!");
-            console.log(recommendations);
         } catch (error) {
             console.error(error);
             toast.error("Failed to generate recommendations.");
@@ -33,12 +32,15 @@ function Recommendation({ budgets, expenses }) {
     };
 
     return (
-        <div className="recommendation-container">
+        <div className="intro">
+            <div className=" intro">
             <button onClick={fetchRecommendation} className="btn btn--dark">
-                Generate Recommendations
+                Generate AI Recommendations
             </button>
-
-            {loading && <p>Loading recommendations...</p>}
+            </div>
+            <div className="intro">
+            {loading && <LoadingIndicator/>}
+            </div>
 
             {error && <p className="error">{error}</p>}
 

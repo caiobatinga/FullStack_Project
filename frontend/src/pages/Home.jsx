@@ -92,24 +92,6 @@ function Home() {
         .catch((error) => alert(error));
     };
 
-    /* Get OpenAI Recommendations */
-
-    const getRecommendations = async () => {
-        try {
-            const response = await api.post('/api/generate-recommendation/', {
-                budgets: budgetList,
-                expenses: expense_list,
-            });
-            const recommendations = response.data.recommendations;
-    
-            // Display the recommendations
-            toast.success("Recommendations generated!");
-            console.log(recommendations);
-        } catch (error) {
-            console.error(error);
-            toast.error("Failed to generate recommendations.");
-        }
-    };
 
     const totalExpense = expense_list.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
 
@@ -258,16 +240,13 @@ function Home() {
             </tbody>
         </table>
         </div>
-        <button className="btn btn--dark" onClick={getRecommendations}>
-    Generate Financial Recommendations
-</button>
 
     </div>
-    <div className="container">
-                <h1>Financial Dashboard</h1>
-                {/* Pass the data to Recommendation */}
-                <Recommendation budgets={budgetList} expenses={expense_list} />
-            </div>
+    <div className="intro">
+        <h2>Financial Analysis</h2>
+        <p>Generate tailored AI-powered recommendations to optimize your spending and improve your budget management based on your expense and budget data.</p>
+        <Recommendation budgets={budgetList} expenses={expense_list} />
+    </div>
 
     <img src={wave} alt="" />
 </div>

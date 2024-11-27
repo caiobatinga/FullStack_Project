@@ -576,6 +576,7 @@ progress[value]::-webkit-progress-value {
 /* chart component */
 .table {
   overflow-x: auto;
+  margin: 40px;
 }
 
 table {

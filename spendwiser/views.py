@@ -98,7 +98,7 @@ class GenerateRecommendationsView(APIView):
 
         try:
             response = openai.chat.completions.create(
-                model="gpt-4",  # Use a newer model like "gpt-3.5-turbo" or "gpt-4"
+                model="gpt-3.5-turbo",  # Use a newer model like "gpt-3.5-turbo" or "gpt-4"
                 messages=[
                     {"role": "system", "content": "You are a financial advisor assistant. Analyze the following data and provide recommendations for optimizing the budget and reducing unnecessary expenses. "},
                     {"role": "user", "content": f"""Generate recommendations based on this data:         Budgets {budgets}   Expenses: {expenses}
@@ -109,7 +109,7 @@ class GenerateRecommendationsView(APIView):
                         4. Potential ways to improve the user's financial health.
     """}
                 ],
-                max_tokens=150
+                max_tokens=300
             )
             reply = response.choices[0].message.content
             print(reply)
