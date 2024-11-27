@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import api from "../api"
 import Expense from "../components/Expense"
 import Budget from "../components/Budget"
-
+import Recommendation from "../components/Recommendation"
 import "../styles/index.css"
 import wave from "../assets/wave.svg"
 import Nav from "../components/Nav"
@@ -262,9 +262,14 @@ function Home() {
         <button className="btn btn--dark" onClick={getRecommendations}>
     Generate Financial Recommendations
 </button>
+
     </div>
 
-    
+    <div className="container">
+                <h1>Financial Dashboard</h1>
+                {/* Pass the data to Recommendation */}
+                <Recommendation budgets={budgetList} expenses={expense_list} />
+            </div>
 
     <img src={wave} alt="" />
 </div>
