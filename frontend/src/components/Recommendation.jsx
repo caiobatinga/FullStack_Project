@@ -20,7 +20,7 @@ function Recommendation({ budgets, expenses }) {
             });
             const recommendations = response.data.recommendations;
     
-            // Display the recommendations
+            console.log(response)
             toast.success("Recommendations generated!");
             console.log(recommendations);
         } catch (error) {

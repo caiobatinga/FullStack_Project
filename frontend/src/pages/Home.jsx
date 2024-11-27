@@ -251,7 +251,6 @@ function Home() {
         {expense_list.map((expense) => (
             <Expense
                 expense={expense}
-                budget={Budget}
                 onDelete={deleteExpense}
                 key={expense.id}
             />

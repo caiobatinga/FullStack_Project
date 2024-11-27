@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/Expense.css"
 
-function Expense_item({expense, budget, onDelete})  {
+function Expense_item({expense, onDelete})  {
     return <>
         <tr>
             <td>{expense.title}</td>
