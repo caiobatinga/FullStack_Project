@@ -15,8 +15,8 @@ function Recommendation({ budgets, expenses }) {
 
         try {
             const response = await api.post('/api/generate-recommendation/', {
-                budgets: budgetList,
-                expenses: expense_list,
+                budgets,
+                expenses,
             });
             const recommendations = response.data.recommendations;
     
