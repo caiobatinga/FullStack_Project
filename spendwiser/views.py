@@ -42,6 +42,12 @@ class Logger:
 
         return cls._instance
     
+    @staticmethod
+    def get_instance():
+        if Logger._instance is None:
+            Logger()
+        return Logger._instance
+    
     def log(self, message):
         time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log = f"[{time}] {message}"
