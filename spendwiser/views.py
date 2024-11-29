@@ -113,11 +113,11 @@ class GenerateRecommendationsView(APIView):
                 max_tokens=300
             )
             reply = response.choices[0].message.content
-            Logger.log("Successfully generated recommendations.")
+            Logger._instance.log("Successfully generated recommendations.")
 
             return Response({"recommendation": reply}, status=status.HTTP_200_OK)
         except Exception as e:
-            Logger.log(f"Error generating recommendation: {str(e)}")
+            Logger._instance.log(f"Error generating recommendation: {str(e)}")
             raise
 
     #Singleton - Logger
