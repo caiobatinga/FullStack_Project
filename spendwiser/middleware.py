@@ -1,4 +1,4 @@
-from views import Logger
+from .views import Logger
 
 class RequestLoggingMiddleware:
     def __init__(self, get_response):
