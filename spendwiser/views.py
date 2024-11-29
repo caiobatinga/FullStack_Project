@@ -11,6 +11,7 @@ import openai
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import datetime
 
 
 def add_expense(request):
@@ -98,7 +99,7 @@ class GenerateRecommendationsView(APIView):
 
         try:
             response = openai.chat.completions.create(
-                model="gpt-3.5-turbo",  # Use a newer model like "gpt-3.5-turbo" or "gpt-4"
+                model="gpt-3.5-turbo", 
                 messages=[
                     {"role": "system", "content": "You are a financial advisor assistant. Analyze the following data and provide recommendations for optimizing the budget and reducing unnecessary expenses. "},
                     {"role": "user", "content": f"""Generate recommendations based on this data:         Budgets {budgets}   Expenses: {expenses}
@@ -112,11 +113,33 @@ class GenerateRecommendationsView(APIView):
                 max_tokens=300
             )
             reply = response.choices[0].message.content
-            print(reply)
+            Logger.log("Successfully generated recommendations.")
+
             return Response({"recommendation": reply}, status=status.HTTP_200_OK)
         except Exception as e:
-            print(f"Error generating recommendation: {str(e)}")
+            Logger.log(f"Error generating recommendation: {str(e)}")
             raise
+
+    #Singleton - Logger
+
+class Logger:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Logger, cls).__new__(cls)
+            cls._instance.logs = []
+
+        return cls._instance
+    
+    def log(self, message):
+        time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log = f"[{time}] {message}"
+        self.logs.append(log)
+        print(log)
+
+
+
 
 
 

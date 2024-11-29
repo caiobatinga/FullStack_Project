@@ -49,6 +49,7 @@ function Home() {
             if (res.status === 201) toast.success("Expense created!");
             else alert("Failed to create expense.")
             getExpenses();
+            setTitle("");
             setBudget_Title("");
             setAmount("");
             setDate("");

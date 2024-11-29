@@ -22,7 +22,7 @@ function Recommendation({ budgets, expenses }) {
             
             setRecommendation(response.data.recommendation)
     
-            toast.success("Recommendations generated!");
+            toast.success("AI Recommendations generated!");
         } catch (error) {
             console.error(error);
             toast.error("Failed to generate recommendations.");

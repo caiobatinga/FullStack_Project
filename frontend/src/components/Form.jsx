@@ -6,6 +6,8 @@ import "../styles/index.css"
 import LoadingIndicator from "./LoadingIndicator";
 import Nav from "./Nav";
 import wave from "../assets/wave.svg"
+import { toast } from "react-toastify"
+
 
 function Form({route, method}) {
     const [username, setUsername] = useState("")
@@ -22,7 +24,9 @@ function Form({route, method}) {
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+                toast.success("You are logged in!")
                 navigate("/")
+                
             } else{
                 navigate("/login")
             }
