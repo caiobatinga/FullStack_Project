@@ -95,6 +95,7 @@ class GenerateRecommendationsView(APIView):
     def post(self, request):
         budgets = request.data.get('budgets', [])
         expenses = request.data.get('expenses', [])
+        logger = Logger.get_instance()
 
 
         try:
@@ -113,11 +114,11 @@ class GenerateRecommendationsView(APIView):
                 max_tokens=300
             )
             reply = response.choices[0].message.content
-            Logger._instance.log("Successfully generated recommendations.")
+            logger.log("Successfully generated recommendations.")
 
             return Response({"recommendation": reply}, status=status.HTTP_200_OK)
         except Exception as e:
-            Logger._instance.log(f"Error generating recommendation: {str(e)}")
+            logger.log(f"Error generating recommendation: {str(e)}")
             raise
 
     #Singleton - Logger
