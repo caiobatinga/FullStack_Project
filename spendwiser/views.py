@@ -74,7 +74,7 @@ class ExpenseListCreate(generics.ListCreateAPIView):
             date = validated_data.get('date')
             budget = validated_data.get('budget') 
             
-            expense = serializer.save(author=self.request.user)
+            serializer.save(author=self.request.user)
             
 
             self.logger.log(
@@ -113,6 +113,7 @@ class CreateUserView(generics.CreateAPIView):
 class BudgetListCreate(generics.ListCreateAPIView):
     serializer_class = BudgetSerializer
     permission_classes = [IsAuthenticated]
+    logger = Logger()
 
     def get_queryset(self):
         user = self.request.user
@@ -121,8 +122,16 @@ class BudgetListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         if serializer.is_valid():
             serializer.save(author=self.request.user)
+            validated_data = serializer.validated_data
+            amount = validated_data.get('amount')
+            title = validated_data.get('title')
+            date = validated_data.get('date')
+            self.logger.log(
+            f"New budget created: Title - {title}, Amount - {amount}, "
+            f"Date - {date}, User - {self.request.user.username}"
+            )
         else:
-            print(serializer.errors)
+            self.logger.log(serializer.errors)
 
 #Delete Expense
 class BudgetDelete(generics.DestroyAPIView):
