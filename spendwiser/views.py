@@ -30,6 +30,7 @@ def get_expenses(request):
 
     return JsonResponse(expenses_list, safe=False)
 
+    
     #Singleton - Logger
 
 class Logger:
@@ -106,6 +107,11 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+    logger = Logger.get_instance()  
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+        self.logger.log(f"New user created: username={user.username}")
 
 
 #Create Budget
@@ -133,14 +139,20 @@ class BudgetListCreate(generics.ListCreateAPIView):
         else:
             self.logger.log(serializer.errors)
 
-#Delete Expense
+#Delete Budget
 class BudgetDelete(generics.DestroyAPIView):
     serializer_class = BudgetSerializer
     permission_classes = [IsAuthenticated]
+    logger = Logger.get_instance()
 
     def get_queryset(self):
         user = self.request.user
         return Budget.objects.filter(author=user)
+    
+    def perform_destroy(self, instance):
+        
+        self.logger.log(f"Budget deleted: ID - {instance.id}")
+        super().perform_destroy(instance)
     
 
 #OpenAI API
