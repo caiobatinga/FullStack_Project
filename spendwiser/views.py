@@ -90,10 +90,16 @@ class ExpenseListCreate(generics.ListCreateAPIView):
 class ExpenseDelete(generics.DestroyAPIView):
     serializer_class = ExpenseSerializer
     permission_classes = [IsAuthenticated]
+    logger = Logger.get_instance()
 
     def get_queryset(self):
         user = self.request.user
         return Expenses.objects.filter(author=user)
+    
+    def perform_destroy(self, instance):
+        
+        self.logger.log(f"Expense deleted: ID - {instance.id}")
+        super().perform_destroy(instance)
 
 #Create User
 class CreateUserView(generics.CreateAPIView):
