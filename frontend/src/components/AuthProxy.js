@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import api from "../api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 
@@ -41,3 +41,5 @@ class AuthProxy {
         return false;
     }
 }
+
+export const authProxy = new AuthProxy();
