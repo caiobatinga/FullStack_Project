@@ -30,7 +30,6 @@ def get_expenses(request):
 
     return JsonResponse(expenses_list, safe=False)
 
-    
     #Singleton - Logger
 
 class Logger:
@@ -55,37 +54,54 @@ class Logger:
         self.logs.append(log)
         print(log)
 
-#Create Expense
-class ExpenseListCreate(generics.ListCreateAPIView):
-    serializer_class = ExpenseSerializer
-    permission_classes = [IsAuthenticated]
-    logger = Logger.get_instance()
-    
+
+ # Template Pattern
+
+class BaseModelView(generics.GenericAPIView):
+
+    model = None  
+    serializer_class = None
+    logger = Logger.get_instance() 
 
     def get_queryset(self):
+        """
+        Template method for retrieving the queryset.
+        By default, filters by the current user.
+        """
         user = self.request.user
-        return Expenses.objects.filter(author=user)
-    
+        return self.model.objects.filter(author=user)
+
     def perform_create(self, serializer):
+        """
+        Template method for handling object creation.
+        Logs the action by default.
+        """
         if serializer.is_valid():
-
-            validated_data = serializer.validated_data
-            amount = validated_data.get('amount')
-            title = validated_data.get('title')
-            date = validated_data.get('date')
-            budget = validated_data.get('budget') 
-            
-            serializer.save(author=self.request.user)
-            
-
-            self.logger.log(
-                f"New expense created: Title - {title}, Amount - {amount}, "
-                f"Date - {date}, Budget - {budget}, User - {self.request.user.username}"
-            )
-            
-            
+            instance = serializer.save(author=self.request.user)
+            self.log_creation(instance)
         else:
-            print(serializer.errors)
+            self.logger.log(f"Failed to create {self.model.__name__}: {serializer.errors}")
+
+    def log_creation(self, instance):
+        """
+        Template method for logging object creation.
+        Can be customized by subclasses.
+        """
+        self.logger.log(f"{self.model.__name__} created: {instance}")
+
+
+
+#Create Expense
+class ExpenseListCreate(BaseModelView, generics.ListCreateAPIView):
+    model = Expenses
+    serializer_class = ExpenseSerializer
+
+    def log_creation(self, instance):
+        self.logger.log(
+            f"Expense created: Title - {instance.title}, Amount - {instance.amount}, "
+            f"Date - {instance.date}, User - {self.request.user.username}"
+        )
+
 
 #Delete Expense
 class ExpenseDelete(generics.DestroyAPIView):
