@@ -102,6 +102,17 @@ class ExpenseListCreate(BaseModelView, generics.ListCreateAPIView):
             f"Date - {instance.date}, User - {self.request.user.username}"
         )
 
+#Create Budget
+
+class BudgetListCreate(BaseModelView, generics.ListCreateAPIView):
+    model = Budget
+    serializer_class = BudgetSerializer
+
+    def log_creation(self, instance):
+        self.logger.log(
+            f"Budget created: Title - {instance.title}, Amount - {instance.amount}, "
+            f"Date - {instance.date}, User - {self.request.user.username}"
+        )
 
 #Delete Expense
 class ExpenseDelete(generics.DestroyAPIView):
@@ -130,30 +141,7 @@ class CreateUserView(generics.CreateAPIView):
         self.logger.log(f"New user created: username={user.username}")
 
 
-#Create Budget
 
-class BudgetListCreate(generics.ListCreateAPIView):
-    serializer_class = BudgetSerializer
-    permission_classes = [IsAuthenticated]
-    logger = Logger()
-
-    def get_queryset(self):
-        user = self.request.user
-        return Budget.objects.filter(author=user)
-    
-    def perform_create(self, serializer):
-        if serializer.is_valid():
-            serializer.save(author=self.request.user)
-            validated_data = serializer.validated_data
-            amount = validated_data.get('amount')
-            title = validated_data.get('title')
-            date = validated_data.get('date')
-            self.logger.log(
-            f"New budget created: Title - {title}, Amount - {amount}, "
-            f"Date - {date}, User - {self.request.user.username}"
-            )
-        else:
-            self.logger.log(serializer.errors)
 
 #Delete Budget
 class BudgetDelete(generics.DestroyAPIView):
