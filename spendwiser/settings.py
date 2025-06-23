@@ -94,9 +94,9 @@ DATABASES = {
         
         'NAME': 'postgres',
 
-        'USER': 'admin_spendwiser',
-        'PASSWORD': '!Crypt0gr@phy$',
-        'HOST': 'spendwiser-db.postgres.database.azure.com',
+        'USER': 'USER',
+        'PASSWORD': 'PASSWORD',
+        'HOST': 'HOST',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',  
