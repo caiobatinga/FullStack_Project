@@ -160,7 +160,7 @@ class BudgetDelete(generics.DestroyAPIView):
     
 
 #OpenAI API
-openai.api_key = "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"
+openai.api_key = "KEY"
 
 class GenerateRecommendationsView(APIView):
     def post(self, request):
